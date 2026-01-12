@@ -1,6 +1,24 @@
 import React from 'react';
+import  {useState} from 'react';
 
 const Login: React.FC = () => {
+
+    const [email, setEmail] = useState<string>("");
+    const [password, setPassword] = useState<string>("");
+    const [emailError, setEmailError] = useState<string>("");
+    const [passwordError, setPasswordError] = useState<string>("");
+
+const handleLogin = () => {
+
+    if(email.trim() === ""){
+        setEmailError("! Please enter a valid email");
+    }
+    if(password.trim() === ""){
+        setPasswordError("! Please enter a valid password");
+    }
+
+}
+        
 
     return( <section className="flex justify-center items-center  min-h-screen bg-gray-200" >
                 <div className="flex flex-col justify-center items-center gap-8 bg-white rounded-lg w-100 p-5 shadow-lg">
@@ -10,22 +28,32 @@ const Login: React.FC = () => {
                         <label className="flex flex-col text-gray-700 sm: text-sm sm:text-base">
                         Email or phone number
                         <input 
+                        value={email}
+                        onChange={(e) => setEmail(e.target.value)}
                         type="text"
                         placeholder="Email or phone number"
-                        className="border p-2 rounded-lg sm:p-4 text-sm sm:text-base"/>
+                        className={`border p-2 rounded-lg sm:p-4 text-sm sm:text-base ${emailError && ("border-red-500")}`}/>
+                        <p className="pt-0 text-red-500 text-xs sm:text-sm">{emailError}</p>
                         </label>
+                        
 
                         <label className="flex flex-col text-gray-700 text-sm sm:text-base">
                             Password
-                        <input 
+                        <input
+                        value={password} 
+                        onChange={(e) => setPassword(e.target.value)}
                         type="password"
                         placeholder="Password"
-                        className="border p-2 rounded-lg sm:p-4"/>
+                        className={`border p-2 rounded-lg sm:p-4 ${passwordError && ("border-red-500")}`}/>
+                        <p className="text-red-500 text-xs sm:text-sm">{passwordError}</p>
                         </label>
+                       
 
                         <p className="text-blue-700 text-sm sm:text-base">Forgot username?</p>
 
-                        <button className="border p-2 rounded-lg bg-blue-500 text-white text-sm sm:text-base sm:p-4"> 
+                        <button 
+                        onClick={handleLogin}
+                        className="border p-2 rounded-lg bg-blue-500 text-white text-sm sm:text-base sm:p-4"> 
                             Login
                         </button>
                         <div className="flex justify-center items-center gap-2 text-sm sm:text-base">
